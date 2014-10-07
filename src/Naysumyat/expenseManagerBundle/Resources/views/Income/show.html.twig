@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Income</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Incometitle</th>
+                <td>{{ entity.incomeTitle }}</td>
+            </tr>
+            <tr>
+                <th>Incomeamount</th>
+                <td>{{ entity.incomeAmount }}</td>
+            </tr>
+            <tr>
+                <th>Incomedate</th>
+                <td>{{ entity.incomeDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Incomecreateddate</th>
+                <td>{{ entity.incomeCreatedDate|date('Y-m-d') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('income') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('income_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

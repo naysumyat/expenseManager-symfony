@@ -1,0 +1,5 @@
+naysumyatexpense_manager:
+    resource: "@NaysumyatexpenseManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

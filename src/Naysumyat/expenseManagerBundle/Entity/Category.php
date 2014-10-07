@@ -1,0 +1,178 @@
+<?php
+
+namespace Naysumyat\expenseManagerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Category
+ *
+ * @ORM\Table(name="categories")
+ * @ORM\Entity(repositoryClass="Naysumyat\expenseManagerBundle\Entity\CategoryRepository")
+ */
+class Category
+{
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Expense" , mappedBy="category" )
+     */
+    private $expenses;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="category_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category_name", type="string", length=255)
+     */
+    private $categoryName;
+
+    public function __construct(){
+        $this->expenses = new ArrayCollection();
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category_slug", type="string", length=155)
+     */
+    private $categorySlug;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="category_created_date", type="datetimetz")
+     */
+    private $categoryCreatedDate;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set categoryName
+     *
+     * @param string $categoryName
+     * @return Category
+     */
+    public function setCategoryName($categoryName)
+    {
+        $this->categoryName = $categoryName;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryName
+     *
+     * @return string 
+     */
+    public function getCategoryName()
+    {
+        return $this->categoryName;
+    }
+
+    /**
+     * Set categorySlug
+     *
+     * @param string $categorySlug
+     * @return Category
+     */
+    public function setCategorySlug($categorySlug)
+    {
+        $this->categorySlug = $categorySlug;
+
+        return $this;
+    }
+
+    /**
+     * Get categorySlug
+     *
+     * @return string 
+     */
+    public function getCategorySlug()
+    {
+        return $this->categorySlug;
+    }
+
+    /**
+     * Set categoryCreatedDate
+     *
+     * @param \DateTime $categoryCreatedDate
+     * @return Category
+     */
+    public function setCategoryCreatedDate($categoryCreatedDate)
+    {
+        $this->categoryCreatedDate = $categoryCreatedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryCreatedDate
+     *
+     * @return \DateTime 
+     */
+    public function getCategoryCreatedDate()
+    {
+        return $this->categoryCreatedDate;
+    }
+
+    /**
+     * Add expenses
+     *
+     * @param \Naysumyat\expenseManagerBundle\Entity\Expense $expenses
+     * @return Category
+     */
+    public function addExpense(\Naysumyat\expenseManagerBundle\Entity\Expense $expenses)
+    {
+        $this->expenses[] = $expenses;
+
+        return $this;
+    }
+
+    /**
+     * Remove expenses
+     *
+     * @param \Naysumyat\expenseManagerBundle\Entity\Expense $expenses
+     */
+    public function removeExpense(\Naysumyat\expenseManagerBundle\Entity\Expense $expenses)
+    {
+        $this->expenses->removeElement($expenses);
+    }
+
+    /**
+     * Get expenses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExpenses()
+    {
+        return $this->expenses;
+    }
+
+    /**
+     * Render category name
+     *
+     * @return string
+     */
+    public function __toString(){
+        return $this->getCategoryName();
+    }
+}
